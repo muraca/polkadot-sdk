@@ -19,9 +19,8 @@ mod cli;
 use std::{io::Write, sync::Arc};
 
 use cli::{RelayChainCli, Subcommand, TestCollatorCli};
-use cumulus_client_cli::generate_genesis_block;
 use cumulus_primitives_core::{relay_chain::CollatorPair, ParaId};
-use cumulus_test_service::AnnounceBlockFn;
+use cumulus_test_service::{genesis::generate_genesis_block, AnnounceBlockFn};
 use polkadot_service::runtime_traits::AccountIdConversion;
 use sc_cli::{CliConfiguration, SubstrateCli};
 use sp_core::{hexdisplay::HexDisplay, Encode, Pair};
