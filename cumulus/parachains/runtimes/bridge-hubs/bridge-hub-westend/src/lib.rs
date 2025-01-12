@@ -63,6 +63,7 @@ use frame_support::{
 	construct_runtime, derive_impl,
 	dispatch::DispatchClass,
 	genesis_builder_helper::{build_state, get_preset},
+	instances::Instance1,
 	parameter_types,
 	traits::{ConstBool, ConstU32, ConstU64, ConstU8, Get, TransformOrigin},
 	weights::{ConstantMultiplier, Weight, WeightToFee as _},
@@ -849,7 +850,7 @@ impl_runtime_apis! {
 
 	impl bp_rococo::RococoFinalityApi<Block> for Runtime {
 		fn best_finalized() -> Option<HeaderId<bp_rococo::Hash, bp_rococo::BlockNumber>> {
-			BridgeRococoGrandpa::best_finalized()
+ 			pallet_bridge_grandpa::BestFinalized::<Runtime, Instance1>::get()
 		}
 		fn free_headers_interval() -> Option<bp_rococo::BlockNumber> {
 			<Runtime as pallet_bridge_grandpa::Config<

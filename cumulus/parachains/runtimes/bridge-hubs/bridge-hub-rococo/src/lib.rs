@@ -62,6 +62,7 @@ use frame_support::{
 	construct_runtime, derive_impl,
 	dispatch::DispatchClass,
 	genesis_builder_helper::{build_state, get_preset},
+	instances::{Instance3, Instance4},
 	parameter_types,
 	traits::{ConstBool, ConstU32, ConstU64, ConstU8, Get, TransformOrigin},
 	weights::{ConstantMultiplier, Weight, WeightToFee as _},
@@ -916,7 +917,7 @@ impl_runtime_apis! {
 
 	impl bp_westend::WestendFinalityApi<Block> for Runtime {
 		fn best_finalized() -> Option<HeaderId<bp_westend::Hash, bp_westend::BlockNumber>> {
-			BridgeWestendGrandpa::best_finalized()
+		 	pallet_bridge_grandpa::BestFinalized::<Runtime, Instance3>::get()
 		}
 		fn free_headers_interval() -> Option<bp_westend::BlockNumber> {
 			<Runtime as pallet_bridge_grandpa::Config<
@@ -970,7 +971,7 @@ impl_runtime_apis! {
 
 	impl bp_polkadot_bulletin::PolkadotBulletinFinalityApi<Block> for Runtime {
 		fn best_finalized() -> Option<bp_runtime::HeaderId<bp_polkadot_bulletin::Hash, bp_polkadot_bulletin::BlockNumber>> {
-			BridgePolkadotBulletinGrandpa::best_finalized()
+	 		pallet_bridge_grandpa::BestFinalized::<Runtime, Instance4>::get()
 		}
 
 		fn free_headers_interval() -> Option<bp_polkadot_bulletin::BlockNumber> {
