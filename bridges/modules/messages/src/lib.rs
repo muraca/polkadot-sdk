@@ -506,14 +506,12 @@ pub mod pallet {
 	/// runtime methods may still be used to do that (i.e. democracy::referendum to update halt
 	/// flag directly or call the `set_operating_mode`).
 	#[pallet::storage]
-	#[pallet::getter(fn module_owner)]
 	pub type PalletOwner<T: Config<I>, I: 'static = ()> = StorageValue<_, T::AccountId>;
 
 	/// The current operating mode of the pallet.
 	///
 	/// Depending on the mode either all, some, or no transactions will be allowed.
 	#[pallet::storage]
-	#[pallet::getter(fn operating_mode)]
 	pub type PalletOperatingMode<T: Config<I>, I: 'static = ()> =
 		StorageValue<_, MessagesOperatingMode, ValueQuery>;
 
