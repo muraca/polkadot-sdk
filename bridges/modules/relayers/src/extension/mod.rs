@@ -444,7 +444,7 @@ where
 #[cfg(test)]
 mod tests {
 	use super::*;
-	use crate::mock::*;
+	use crate::{mock::*, RelayerRewards};
 
 	use bp_header_chain::{StoredHeaderDataBuilder, SubmitFinalityProofInfo};
 	use bp_messages::{
@@ -1788,7 +1788,7 @@ mod tests {
 			let regular_reward = expected_delivery_reward();
 			run_post_dispatch(Some(pre_dispatch_data), Ok(()));
 			assert_eq!(
-				RelayersPallet::<TestRuntime>::relayer_reward(
+				RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgProofsRewardsAccount::get()
 				),
@@ -1807,7 +1807,7 @@ mod tests {
 				_ => unreachable!(),
 			}
 			run_post_dispatch(Some(pre_dispatch_data), Ok(()));
-			let reward_after_two_calls = RelayersPallet::<TestRuntime>::relayer_reward(
+			let reward_after_two_calls = RelayerRewards::<TestRuntime>::get(
 				relayer_account_at_this_chain(),
 				MsgProofsRewardsAccount::get(),
 			)
@@ -1828,7 +1828,7 @@ mod tests {
 
 			run_post_dispatch(Some(all_finality_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-				RelayersPallet::<TestRuntime>::relayer_reward(
+			    RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgProofsRewardsAccount::get()
 				),
@@ -1837,7 +1837,7 @@ mod tests {
 
 			run_post_dispatch(Some(all_finality_confirmation_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-				RelayersPallet::<TestRuntime>::relayer_reward(
+			    RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgDeliveryProofsRewardsAccount::get()
 				),
@@ -1853,7 +1853,7 @@ mod tests {
 
 			run_post_dispatch(Some(parachain_finality_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-				RelayersPallet::<TestRuntime>::relayer_reward(
+                RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgProofsRewardsAccount::get()
 				),
@@ -1862,7 +1862,7 @@ mod tests {
 
 			run_post_dispatch(Some(parachain_finality_confirmation_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-				RelayersPallet::<TestRuntime>::relayer_reward(
+			    RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgDeliveryProofsRewardsAccount::get()
 				),
@@ -1878,7 +1878,7 @@ mod tests {
 
 			run_post_dispatch(Some(delivery_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-				RelayersPallet::<TestRuntime>::relayer_reward(
+                RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgProofsRewardsAccount::get()
 				),
@@ -1887,7 +1887,7 @@ mod tests {
 
 			run_post_dispatch(Some(confirmation_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-				RelayersPallet::<TestRuntime>::relayer_reward(
+                RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgDeliveryProofsRewardsAccount::get()
 				),

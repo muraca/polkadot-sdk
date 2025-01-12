@@ -238,7 +238,7 @@ pub mod pallet {
 		/// it'll return false if registered stake is lower than required or if remaining lease
 		/// is less than `RequiredRegistrationLease`.
 		pub fn is_registration_active(relayer: &T::AccountId) -> bool {
-			let registration = match Self::registered_relayer(relayer) {
+			let registration = match RegisteredRelayers::<T, I>::get(relayer) {
 				Some(registration) => registration,
 				None => return false,
 			};
@@ -459,7 +459,6 @@ pub mod pallet {
 
 	/// Map of the relayer => accumulated reward.
 	#[pallet::storage]
-	#[pallet::getter(fn relayer_reward)]
 	pub type RelayerRewards<T: Config<I>, I: 'static = ()> = StorageDoubleMap<
 		_,
 		<RelayerRewardsKeyProviderOf<T, I> as StorageDoubleMapKeyProvider>::Hasher1,
@@ -477,7 +476,6 @@ pub mod pallet {
 	/// priority and will be rejected (without significant tip) in case if registered
 	/// relayer is present.
 	#[pallet::storage]
-	#[pallet::getter(fn registered_relayer)]
 	pub type RegisteredRelayers<T: Config<I>, I: 'static = ()> = StorageMap<
 		_,
 		Blake2_128Concat,
@@ -690,7 +688,7 @@ mod tests {
 			));
 			assert_eq!(Balances::reserved_balance(REGISTER_RELAYER), Stake::get());
 			assert_eq!(
-				Pallet::<TestRuntime>::registered_relayer(REGISTER_RELAYER),
+				RegisteredRelayers::<TestRuntime>::get(REGISTER_RELAYER),
 				Some(Registration { valid_till: 150, stake: Stake::get() }),
 			);
 
@@ -758,7 +756,7 @@ mod tests {
 			assert_eq!(Balances::reserved_balance(REGISTER_RELAYER), Stake::get());
 			assert_eq!(Balances::free_balance(REGISTER_RELAYER), free_balance + 1);
 			assert_eq!(
-				Pallet::<TestRuntime>::registered_relayer(REGISTER_RELAYER),
+				RegisteredRelayers::<TestRuntime>::get(REGISTER_RELAYER),
 				Some(Registration { valid_till: 150, stake: Stake::get() }),
 			);
 
@@ -822,7 +820,7 @@ mod tests {
 			assert_eq!(Balances::reserved_balance(REGISTER_RELAYER), Stake::get());
 			assert_eq!(Balances::free_balance(REGISTER_RELAYER), free_balance - 1);
 			assert_eq!(
-				Pallet::<TestRuntime>::registered_relayer(REGISTER_RELAYER),
+				RegisteredRelayers::<TestRuntime>::get(REGISTER_RELAYER),
 				Some(Registration { valid_till: 150, stake: Stake::get() }),
 			);
 
