@@ -418,7 +418,6 @@ pub mod pallet {
 
 	/// Hash of the best finalized header.
 	#[pallet::storage]
-	#[pallet::getter(fn best_finalized)]
 	pub type BestFinalized<T: Config<I>, I: 'static = ()> =
 		StorageValue<_, BridgedBlockId<T, I>, OptionQuery>;
 
@@ -789,12 +788,9 @@ where
 	pub fn synced_headers_grandpa_info() -> Vec<StoredHeaderGrandpaInfo<BridgedHeader<T, I>>> {
 		frame_system::Pallet::<T>::read_events_no_consensus()
 			.filter_map(|event| {
-				if let Event::<T, I>::UpdatedBestFinalizedHeader { grandpa_info, .. } =
-					event.event.try_into().ok()?
-				{
-					return Some(grandpa_info)
-				}
-				None
+				let Event::<T, I>::UpdatedBestFinalizedHeader { grandpa_info, .. } =
+					event.event.try_into().ok()?;
+				Some(grandpa_info)
 			})
 			.collect()
 	}
@@ -995,7 +991,6 @@ mod tests {
 	fn init_storage_entries_are_correctly_initialized() {
 		run_test(|| {
 			assert_eq!(BestFinalized::<TestRuntime>::get(), None,);
-			assert_eq!(Pallet::<TestRuntime>::best_finalized(), None);
 			assert_eq!(PalletOperatingMode::<TestRuntime>::try_get(), Err(()));
 
 			let init_data = init_with_origin(RuntimeOrigin::root()).unwrap();
@@ -1637,7 +1632,7 @@ mod tests {
 		run_test(|| {
 			initialize_substrate_bridge();
 			assert_ok!(submit_finality_proof(1));
-			let first_header_hash = Pallet::<TestRuntime>::best_finalized().unwrap().hash();
+			let first_header_hash = BestFinalized::<TestRuntime>::get().unwrap().hash();
 			next_block();
 
 			assert_ok!(submit_finality_proof(2));
