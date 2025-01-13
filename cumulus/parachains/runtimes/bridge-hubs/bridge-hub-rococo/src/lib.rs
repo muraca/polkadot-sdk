@@ -917,7 +917,7 @@ impl_runtime_apis! {
 
 	impl bp_westend::WestendFinalityApi<Block> for Runtime {
 		fn best_finalized() -> Option<HeaderId<bp_westend::Hash, bp_westend::BlockNumber>> {
-		 	pallet_bridge_grandpa::BestFinalized::<Runtime, Instance3>::get()
+			 pallet_bridge_grandpa::BestFinalized::<Runtime, Instance3>::get()
 		}
 		fn free_headers_interval() -> Option<bp_westend::BlockNumber> {
 			<Runtime as pallet_bridge_grandpa::Config<
@@ -971,7 +971,7 @@ impl_runtime_apis! {
 
 	impl bp_polkadot_bulletin::PolkadotBulletinFinalityApi<Block> for Runtime {
 		fn best_finalized() -> Option<bp_runtime::HeaderId<bp_polkadot_bulletin::Hash, bp_polkadot_bulletin::BlockNumber>> {
-	 		pallet_bridge_grandpa::BestFinalized::<Runtime, Instance4>::get()
+			 pallet_bridge_grandpa::BestFinalized::<Runtime, Instance4>::get()
 		}
 
 		fn free_headers_interval() -> Option<bp_polkadot_bulletin::BlockNumber> {

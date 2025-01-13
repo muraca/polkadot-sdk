@@ -850,7 +850,7 @@ impl_runtime_apis! {
 
 	impl bp_rococo::RococoFinalityApi<Block> for Runtime {
 		fn best_finalized() -> Option<HeaderId<bp_rococo::Hash, bp_rococo::BlockNumber>> {
- 			pallet_bridge_grandpa::BestFinalized::<Runtime, Instance1>::get()
+			 pallet_bridge_grandpa::BestFinalized::<Runtime, Instance1>::get()
 		}
 		fn free_headers_interval() -> Option<bp_rococo::BlockNumber> {
 			<Runtime as pallet_bridge_grandpa::Config<

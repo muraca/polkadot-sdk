@@ -1828,7 +1828,7 @@ mod tests {
 
 			run_post_dispatch(Some(all_finality_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-			    RelayerRewards::<TestRuntime>::get(
+				RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgProofsRewardsAccount::get()
 				),
@@ -1837,7 +1837,7 @@ mod tests {
 
 			run_post_dispatch(Some(all_finality_confirmation_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-			    RelayerRewards::<TestRuntime>::get(
+				RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgDeliveryProofsRewardsAccount::get()
 				),
@@ -1853,7 +1853,7 @@ mod tests {
 
 			run_post_dispatch(Some(parachain_finality_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-                RelayerRewards::<TestRuntime>::get(
+				RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgProofsRewardsAccount::get()
 				),
@@ -1862,7 +1862,7 @@ mod tests {
 
 			run_post_dispatch(Some(parachain_finality_confirmation_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-			    RelayerRewards::<TestRuntime>::get(
+				RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgDeliveryProofsRewardsAccount::get()
 				),
@@ -1878,7 +1878,7 @@ mod tests {
 
 			run_post_dispatch(Some(delivery_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-                RelayerRewards::<TestRuntime>::get(
+				RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgProofsRewardsAccount::get()
 				),
@@ -1887,7 +1887,7 @@ mod tests {
 
 			run_post_dispatch(Some(confirmation_pre_dispatch_data()), Ok(()));
 			assert_eq!(
-                RelayerRewards::<TestRuntime>::get(
+				RelayerRewards::<TestRuntime>::get(
 					relayer_account_at_this_chain(),
 					MsgDeliveryProofsRewardsAccount::get()
 				),
