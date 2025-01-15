@@ -6,11 +6,11 @@ doc:
 
 crates:
   - name: pallet-bridge-grandpa
-    bump: patch
+    bump: major
   - name: pallet-bridge-messages
-    bump: patch
+    bump: major
   - name: pallet-bridge-relayers
-    bump: patch
+    bump: major
   - name: bridge-hub-rococo-runtime
     bump: patch
   - name: bridge-hub-westend-runtime
